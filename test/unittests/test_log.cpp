@@ -4,40 +4,36 @@
 //               packet encryption, packet authentication, and
 //               packet compression.
 //
-//    Copyright (C) 2012-2017 OpenVPN Inc.
+//    Copyright (C) 2012- OpenVPN Inc.
 //
-//    This program is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU Affero General Public License Version 3
-//    as published by the Free Software Foundation.
+//    SPDX-License-Identifier: MPL-2.0 OR AGPL-3.0-only WITH openvpn3-openssl-exception
 //
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU Affero General Public License for more details.
-//
-//    You should have received a copy of the GNU Affero General Public License
-//    along with this program in the COPYING file.
-//    If not, see <http://www.gnu.org/licenses/>.
+
+#include "test_common.hpp"
+
+
+// The ovpncli.cpp file is not all OPENVPN_EXTERN safe and totally breaks
+// if included in two files. We probably need to fix this or rename this
+// file test_ovpncli and do ALL test that require ovpncli in this file
+// (or have multiple test suites)
+
+// This file needs to included with OPENVPN_EXTERN still defined otherwise
+// the include from ovpncli.cpp breaks with duplicate symbols
+#include <openvpn/common/base64.hpp>
+
 
 #include <client/ovpncli.cpp>
-#include <gtest/gtest.h>
+
+
 #include <string>
 #include <sstream>
 
-namespace unittests
-{  
-  TEST(LogInfoTest, TestLogInfo)
-  {    
+namespace unittests {
+TEST(LogInfoTest, TestLogInfo)
+{
     std::string msg("logMessage");
     openvpn::ClientAPI::LogInfo logInfo(msg);
-    auto text = logInfo.text;
 
-    ASSERT_EQ(text, msg);
-  }
-}  // namespace
-
-int main(int argc, char **argv)
-{
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+    ASSERT_EQ(logInfo.text, msg);
 }
+} // namespace unittests

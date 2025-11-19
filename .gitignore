@@ -3,3 +3,8 @@ x64
 *.vcxproj.user
 *.ipch
 .idea/
+out
+.vs
+.vscode
+tags*
+build
