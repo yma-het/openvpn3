@@ -1,4 +1,4 @@
- //    OpenVPN -- An application to securely tunnel IP networks
+//    OpenVPN -- An application to securely tunnel IP networks
 //               over a single port, with support for SSL/TLS-based
 //               session authentication and key exchange,
 //               packet encryption, packet authentication, and
@@ -19,7 +19,8 @@
 #include <openvpn/common/platform.hpp>
 
 #ifdef OPENVPN_PLATFORM_WIN
-#include <basetsd.h>
+#if !defined(_SSIZE_T_) && !defined(_SSIZE_T_DEFINED) && !defined(HAVE_SSIZE_T)
+#include <BaseTsd.h>
 typedef SSIZE_T ssize_t;
 #define _SSIZE_T_
 #define _SSIZE_T_DEFINED
